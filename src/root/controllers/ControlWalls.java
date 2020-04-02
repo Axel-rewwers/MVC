@@ -99,7 +99,6 @@ public class ControlWalls extends ControlObject<Wall> {
         if (Keyboard.getKey(KeyEvent.VK_CONTROL) & Keyboard.getKey(KeyEvent.VK_S)) {
             try {
                 loader.saveToFile(getObjects());
-//                saveWallToFile(getObjects(),getPath());
             } catch (IOException ex) {
                 ex.printStackTrace();
                 System.out.println("Ошибка сохранения!!!");

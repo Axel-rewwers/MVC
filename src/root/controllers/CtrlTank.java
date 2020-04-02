@@ -2,6 +2,8 @@ package root.controllers;
 
 import root.model.Tank;
 import root.viewers.VTank;
+import root.viewers.VTankImage;
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -11,7 +13,7 @@ public class CtrlTank extends ControlObject<Tank> {
     public CtrlTank(Tank mainTank) {
         this.mainTank = mainTank;
         addObject(mainTank);
-        setViewer(new VTank());
+        setViewer(new VTankImage());
     }
 
     @Override
