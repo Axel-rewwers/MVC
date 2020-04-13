@@ -6,7 +6,7 @@ import root.utils.Settings;
 
 import java.awt.*;
 
-public class Tank extends BreakableObject{
+public class Tank extends BreakableObject implements Fireable{
 
 
     public static final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
@@ -50,20 +50,22 @@ public class Tank extends BreakableObject{
 
     }
 
-    public boolean isReadyToFire(){
+    @Override
+    public boolean readyToFire(){
         return time + coolDown < System.currentTimeMillis();
     }
 
 
-    public void fire(){
-        if(isReadyToFire()) {
+    @Override
+    public Bullet fire(){
+        if(readyToFire()) {
             Bullet bullet = new Bullet(x, y, direction);
             bullet.setWidth(5);
             bullet.setHeight(5);
-            MapManager.addBullet(bullet);
             time = System.currentTimeMillis();
+            return bullet;
         }
-
+        return null;
     }
 
     public void  go(){

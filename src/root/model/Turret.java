@@ -1,12 +1,12 @@
 package root.model;
 
-public class Turret extends Wall{
+public class Turret extends Wall implements Fireable{
 
 //    private double angle;
     private int direction;
     private int damage;
 
-    private long timeCoolDown = 100;
+    private long timeCoolDown = 1000;
     private long timeLastShot = 0;
 
 
@@ -18,14 +18,6 @@ public class Turret extends Wall{
     @Override
     public void update() {
         super.update();
-
-        if(System.currentTimeMillis() - timeLastShot >= timeCoolDown){
-            Bullet bullet = new Bullet(getX(), getY(), getDirection());
-            MapManager.addBullet(bullet);
-            timeLastShot = System.currentTimeMillis();
-        }
-
-
     }
 
     public int getDirection() {
@@ -51,4 +43,22 @@ public class Turret extends Wall{
     public void setDamage(int damage) {
         this.damage = damage;
     }
+
+    @Override
+    public Bullet fire() {
+        Bullet bullet = null;
+        if(readyToFire()){
+            bullet = new Bullet(getX(), getY(), getDirection());
+            timeLastShot = System.currentTimeMillis();
+            bullet.setWidth(5);
+            bullet.setHeight(5);
+        }
+        return bullet;
+    }
+
+    @Override
+    public boolean readyToFire(){
+        return  System.currentTimeMillis() - timeLastShot >= timeCoolDown;
+    }
+
 }

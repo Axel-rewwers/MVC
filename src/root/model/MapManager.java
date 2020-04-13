@@ -16,14 +16,12 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
     private CtrlTank contrlTank;
     private ControlWalls controlWalls;
     private CtrlTurret ctrlTurret;
-    private static ControllerBullet controlBullet;
+    private ControllerBullet controlBullet;
+    private ControllerExplodes controllerExplodes;
 
     private Tank tank;
 
 //    private static ArrayList<Bullet> bullets;
-
-
-
 
 
     public MapManager() {
@@ -40,20 +38,31 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
 
 //        bullets = new ArrayList<>();
 
+        FireListener fireListener = new FireListener();
+
         ctrlTurret = new CtrlTurret();
+        ctrlTurret.setFireListener(fireListener);
+
+        Turret turret = new Turret(500,500,50,50,false);
+        ctrlTurret.addObject(turret);
+
+
+
         controlBullet = new ControllerBullet();
+
+        contrlTank.setFireListener(fireListener);
+
+
+        controllerExplodes = new ControllerExplodes();
 
         controlObjects.add(controlWalls);
         controlObjects.add(ctrlTurret);
         controlObjects.add(controlBullet);
         controlObjects.add(contrlTank);
+        controlObjects.add(controllerExplodes);
 
     }
 
-
-    public static void addBullet(Bullet bullet) {
-        controlBullet.addObject(bullet);
-    }
 
     public void update() {
 
@@ -62,7 +71,7 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
             controlObjects.get(i).update();
         }
 
-        
+
         //пересечение танка и стен
         Wall wall = controlWalls.getCollision(tank.getRectangle());
         if (wall != null) {
@@ -71,24 +80,24 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
 
 
         //пробегаемся по всем пулям и проверям коллизию стена-пуля
-        ArrayList<Bullet>  bullets = controlBullet.getObjects();
+        ArrayList<Bullet> bullets = controlBullet.getObjects();
         for (int j = 0; j < bullets.size(); j++) {
             Bullet b = bullets.get(j);
 
             wall = controlWalls.getCollision(b.getRectangle());
             if (wall != null) {
                 wall.hit(bullets.get(j).getDamage());
+                Explode explode = new Explode(b.getX(), b.getY(), 50,50);
+                controllerExplodes.addObject(explode);
                 controlBullet.removeObject(b);
             }
         }
 
 
-
-
     }
 
 
-    public void render(Graphics2D g){
+    public void render(Graphics2D g) {
         for (int i = 0; i < controlObjects.size(); i++) {
             controlObjects.get(i).render(g);
         }
@@ -112,6 +121,7 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
     public void mouseMoved(MouseEvent e) {
 
     }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -128,18 +138,42 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) { }
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) { }
+    public void mouseExited(MouseEvent e) {
+    }
 
     @Override
-    public void keyTyped(KeyEvent e) { }
+    public void keyTyped(KeyEvent e) {
+    }
 
     @Override
-    public void keyPressed(KeyEvent e) { controlWalls.keyPressed(e); }
+    public void keyPressed(KeyEvent e) {
+        controlWalls.keyPressed(e);
+    }
 
     @Override
-    public void keyReleased (KeyEvent e){ controlWalls.keyReleased(e); }
+    public void keyReleased(KeyEvent e) {
+        controlWalls.keyReleased(e);
+    }
+
+
+
+
+
+
+    private class FireListener<T extends Fireable> implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            T shooter = (T) e.getSource();
+            Bullet b = shooter.fire();
+            if (b != null) {
+                controlBullet.addObject(b);
+            }
+        }
+    }
+
 }
 

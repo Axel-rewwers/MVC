@@ -21,18 +21,7 @@ public class VWalls implements ViewerObject<Wall> {
         int height = (int) Display.toScale(wall.getHeight());
         int[] tover = new int[100];
 
-//        for (int i = 10; i < 20; i++){
-//            usd = -1;
-//            while (usd != -1) {
-//                if (scoreCells > 0) {
-//                    scoreCells -= i;
-//                    score++;
-//                }else {
-//                    usd = 0;
-//                }
-//            }
-//        }
-//        System.out.println(score + " "+ scoreCells);
+//
 
 
         Point a = new Point(x - width / 2, y - height / 2);

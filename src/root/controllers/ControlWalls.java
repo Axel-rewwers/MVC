@@ -4,6 +4,7 @@ import root.model.Wall;
 import root.utils.Display;
 import root.utils.Keyboard;
 import root.utils.Loader;
+import root.viewers.VWallImage;
 import root.viewers.VWalls;
 
 import java.awt.*;
@@ -19,7 +20,7 @@ public class ControlWalls extends ControlObject<Wall> {
 
     public ControlWalls() {
         editor = new Editor();
-        setViewer(new VWalls());
+        setViewer(new VWallImage());
 
 
         loader = new Loader<>("walls_v1.map");

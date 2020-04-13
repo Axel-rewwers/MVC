@@ -1,14 +1,18 @@
 package root.controllers;
 
 import root.model.Tank;
-import root.viewers.VTank;
 import root.viewers.VTankImage;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class CtrlTank extends ControlObject<Tank> {
     private Tank mainTank;
+
+
+    private ActionListener fireListener;
 
     public CtrlTank(Tank mainTank) {
         this.mainTank = mainTank;
@@ -55,9 +59,18 @@ public class CtrlTank extends ControlObject<Tank> {
                 mainTank.go();
                 break;
             case KeyEvent.VK_SPACE:
-                mainTank.fire();
+//                mainTank.fire();
+                if(fireListener != null){
+                    fireListener.actionPerformed(new ActionEvent(mainTank, 0, "fire"));
+                }
+
                 break;
         }
+    }
+
+
+    public void setFireListener(ActionListener fireListener) {
+        this.fireListener = fireListener;
     }
 
     @Override

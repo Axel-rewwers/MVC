@@ -5,6 +5,7 @@ import root.utils.Display;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class VTankImage implements ViewerObject<Tank> {
 
@@ -27,11 +28,38 @@ public class VTankImage implements ViewerObject<Tank> {
         int y = p.y - height/2;
 
 
+
+
+
+        AffineTransform origTr = g.getTransform();
+
+
+
+
+        double angle = 0;
+
+
+        switch (tank.getDirection()){
+            case Tank.UP:
+                angle = Math.toRadians(0);
+                break;
+            case Tank.DOWN:
+                angle = Math.toRadians(180);
+                break;
+            case Tank.RIGHT:
+                angle = Math.toRadians(90);
+                break;
+            case Tank.LEFT:
+                angle = Math.toRadians(270);
+                break;
+        }
+        AffineTransform newTr = new AffineTransform(origTr);
+
+        newTr.rotate(angle,p.x,p.y);
+        g.setTransform(newTr);
         g.drawImage(image,x, y, width, height, null);
 
-
-
-
+        g.setTransform(origTr);
 
 
     }
