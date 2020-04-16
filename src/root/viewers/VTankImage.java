@@ -40,16 +40,16 @@ public class VTankImage implements ViewerObject<Tank> {
 
 
         switch (tank.getDirection()){
-            case Tank.UP:
+            case UP:
                 angle = Math.toRadians(0);
                 break;
-            case Tank.DOWN:
+            case DOWN:
                 angle = Math.toRadians(180);
                 break;
-            case Tank.RIGHT:
+            case RIGHT:
                 angle = Math.toRadians(90);
                 break;
-            case Tank.LEFT:
+            case LEFT:
                 angle = Math.toRadians(270);
                 break;
         }

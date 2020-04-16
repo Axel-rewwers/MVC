@@ -86,7 +86,7 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
 
             wall = controlWalls.getCollision(b.getRectangle());
             if (wall != null) {
-                wall.hit(bullets.get(j).getDamage());
+                wall.hit(b.getDamage());
                 Explode explode = new Explode(b.getX(), b.getY(), 50,50);
                 controllerExplodes.addObject(explode);
                 controlBullet.removeObject(b);

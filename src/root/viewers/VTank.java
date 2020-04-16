@@ -63,7 +63,7 @@ public class VTank implements ViewerObject<Tank> {
         int changeBaseTankHeigth = height - height/3;
 
         switch (tank.getDirection()) {
-            case Tank.UP:
+            case UP:
                 width3 = width / 4;
                 height3 = height;
                 caterplillarX = x + width / 2 - width3;
@@ -80,7 +80,7 @@ public class VTank implements ViewerObject<Tank> {
 
 
                 break;
-            case Tank.RIGHT:
+            case RIGHT:
                 width3 = width;
                 height3 = height / 4;
                 caterplillarX = x - width / 2;
@@ -96,7 +96,7 @@ public class VTank implements ViewerObject<Tank> {
                 changeBaseTankHeigth = height - height/8;
                 break;
 
-            case Tank.LEFT:
+            case LEFT:
                 width3 = width;
                 height3 = height / 4;
                 caterplillarX = x - width / 2;
@@ -112,7 +112,7 @@ public class VTank implements ViewerObject<Tank> {
                 changeBaseTankHeigth = height - height/8;
 
                 break;
-            case Tank.DOWN:
+            case DOWN:
                 width3 = width / 4;
                 height3 = height;
                 caterplillarX = x + width / 2 - width3;

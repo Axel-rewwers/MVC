@@ -4,6 +4,9 @@ import java.awt.*;
 import java.io.Serializable;
 
 public class Model implements Serializable {
+//    public static final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
+    private Direction direction = Direction.UP;
+
 
     protected double x, y;//координаты НА КАРТЕ
     private double width, height;
@@ -26,23 +29,17 @@ public class Model implements Serializable {
     }
 
 
-//    public double getWx() {
-//        return (x - Display.getX() + (float) Display.getWidth() / 2);
-//
-//        //wX = x - Tank.getTankX() + (float) GamePanel.WIDTH / 2
-//        //-x = -Tank.getTankX() - wX + (float) GamePanel.WIDTH / 2
-//        //x = Tank.getTankX() + wX - (float) GamePanel.WIDTH / 2
-//    }
-//
-//    public double getWy() {
-//        return (y -Display.getY() + (float) Display.getHeight() / 2);
-//    }
-//    ////////////
-
     public double getWidth() {
         return width;
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
 
     public void setWidth(double width) {
         this.width = width;
@@ -56,19 +53,12 @@ public class Model implements Serializable {
         this.height = height;
     }
 
-    //    public boolean contain(double x, double y){
-//        //находится ли данная точка х у в днной модели
-//        return y >= this.getLocation().getY() - height/2 & y <= this.getLocation().getY() + height/2 &
-//                x >= this.getLocation().getX() - width/2 & x <= this.getLocation().getX() + width/2;
-//    }
+
     public boolean contain(double x, double y) {
         //находится ли данная точка х у в днной модели
         return y >= this.y - height / 2 & y <= this.y + height / 2 &
                 x >= this.x - width / 2 & x <= this.x + width / 2;
     }
-//    public boolean contain1(double x, double y) {
-//
-//    }
 
 
     public double getX() {
@@ -112,16 +102,20 @@ public class Model implements Serializable {
         return  new Rectangle(((int) (x - width / 2)), ((int) (y - height / 2)), ((int) width), ((int) height));
     }
 
-//    public static void main(String[] args) {
-//        Model m1 = new Model(13.1, 15.7);
-//        m1.setWidth(30.6);
-//        m1.setHeight(56.5);
-//
-//
-//        Model m2 = new Model(13.1, 15.3);
-//        m2.setWidth(30.6);
-//        m2.setHeight(56.5);
-//
-//        System.out.println(m1.equals(m2));
-//    }
+
+
+    public enum Direction{
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT
+    }
+
+
 }
+
+
+
+
+
+

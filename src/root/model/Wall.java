@@ -36,22 +36,12 @@ public class Wall extends BreakableObject{
     }
 
 
+    @Override
     public void hit(int damage){
         if (!unbreakable) {
             timeHit = System.currentTimeMillis();
-
-            setHealthPointCurrent(getHealthPointCurrent()-damage);
-
-            float relation = (getHealthPointCurrent() / (float) getHealthPoint());
-
-            if(relation <= 0.5){
-                state = 1;
-            }
-            if(relation <= 0 ){
-                state = 0;
-            }
+            super.hit(damage);
         }
-
     }
 
     public boolean isUnbreakable() {

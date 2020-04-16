@@ -5,7 +5,6 @@ import root.utils.Display;
 import root.utils.Keyboard;
 import root.utils.Loader;
 import root.viewers.VWallImage;
-import root.viewers.VWalls;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -33,6 +32,10 @@ public class ControlWalls extends ControlObject<Wall> {
             e.printStackTrace();
         }
 
+//        Wall wall = new Wall(100,100,20,200,100,false);
+//
+//        addObject(wall);
+
 
     }
 
@@ -45,7 +48,7 @@ public class ControlWalls extends ControlObject<Wall> {
             Wall wall = walls.get(i);
             wall.update();
 
-            if(wall.getState() == 0){
+            if(!wall.isAlive()){
                 removeObject(wall);
             }
         }
@@ -100,6 +103,7 @@ public class ControlWalls extends ControlObject<Wall> {
         if (Keyboard.getKey(KeyEvent.VK_CONTROL) & Keyboard.getKey(KeyEvent.VK_S)) {
             try {
                 loader.saveToFile(getObjects());
+                System.out.println("save");
             } catch (IOException ex) {
                 ex.printStackTrace();
                 System.out.println("Ошибка сохранения!!!");

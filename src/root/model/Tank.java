@@ -4,19 +4,17 @@ package root.model;
 import root.utils.Display;
 import root.utils.Settings;
 
-import java.awt.*;
 
 public class Tank extends BreakableObject implements Fireable{
 
 
-    public static final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
-
-
     private double speed;
 
-    private int direction;
+
 
     private long time;
+
+    private int power;
 
     private int coolDown = 1000;
 
@@ -28,27 +26,11 @@ public class Tank extends BreakableObject implements Fireable{
     public Tank(double x, double y, int healthPoint) {
         super(x, y, healthPoint);
         speed = 10;
-
+        power = 1;
     }
 
 
-    public void goForward(){
-        direction = UP;
 
-    }
-
-    public void goRight(){
-        direction = RIGHT;
-
-    }
-    public void goLeft(){
-        direction = LEFT;
-
-    }
-    public void goBackward(){
-        direction = DOWN;
-
-    }
 
     @Override
     public boolean readyToFire(){
@@ -59,9 +41,10 @@ public class Tank extends BreakableObject implements Fireable{
     @Override
     public Bullet fire(){
         if(readyToFire()) {
-            Bullet bullet = new Bullet(x, y, direction);
+            Bullet bullet = new Bullet(x, y, getDirection());
             bullet.setWidth(5);
             bullet.setHeight(5);
+            bullet.setDamage(power);
             time = System.currentTimeMillis();
             return bullet;
         }
@@ -77,7 +60,7 @@ public class Tank extends BreakableObject implements Fireable{
 
     public void update(){
         if(moving){
-            switch (direction){
+            switch (getDirection()){
                 case  UP:
                     y -=speed;
                     break;
@@ -99,9 +82,7 @@ public class Tank extends BreakableObject implements Fireable{
     }
 
 
-    public int getDirection() {
-        return direction;
-    }
+
 
     public double getSpeed() {
         return speed;
@@ -110,16 +91,16 @@ public class Tank extends BreakableObject implements Fireable{
 
     public void impact(){
         switch (getDirection()) {
-            case Tank.UP:
+            case UP:
                 y += speed;
                 break;
-            case Tank.RIGHT:
+            case RIGHT:
                 x -= speed;
                 break;
-            case Tank.LEFT:
+            case LEFT:
                 x += speed;
                 break;
-            case Tank.DOWN:
+            case DOWN:
                 y -= speed;
                 break;
         }

@@ -1,13 +1,12 @@
 package root.model;
 
 public class Bullet extends Model {
-    public static final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
     public static  double speed = 5;
     private int damage;
 
     private double dx = 0, dy = 0;
 
-    public Bullet(double x, double y, int direction) {
+    public Bullet(double x, double y, Direction direction) {
         super(x, y);
         damage = 2;
         switch (direction){
@@ -42,7 +41,9 @@ public class Bullet extends Model {
         return damage;
     }
 
-    public void stop() {
-//            moving = false;
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
+
+
 }

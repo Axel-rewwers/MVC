@@ -1,5 +1,6 @@
 package root.controllers;
 
+import root.model.Model;
 import root.model.Tank;
 import root.viewers.VTankImage;
 
@@ -40,26 +41,25 @@ public class CtrlTank extends ControlObject<Tank> {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP:
-                mainTank.goForward();
+                mainTank.setDirection(Model.Direction.UP);
                 mainTank.go();
                 break;
 
             case KeyEvent.VK_DOWN:
-                mainTank.goBackward();
+                mainTank.setDirection(Model.Direction.DOWN);
                 mainTank.go();
                 break;
 
             case KeyEvent.VK_RIGHT:
-                mainTank.goRight();
+                mainTank.setDirection(Model.Direction.RIGHT);
                 mainTank.go();
                 break;
 
             case KeyEvent.VK_LEFT:
-                mainTank.goLeft();
+                mainTank.setDirection(Model.Direction.LEFT);
                 mainTank.go();
                 break;
             case KeyEvent.VK_SPACE:
-//                mainTank.fire();
                 if(fireListener != null){
                     fireListener.actionPerformed(new ActionEvent(mainTank, 0, "fire"));
                 }

@@ -12,13 +12,13 @@ public class BreakableObject extends Model{
     }
 
     public BreakableObject(double mx, double my, double width, double height, int healthPoint) {
-        super(mx, my, width, height);
-        this.healthPoint = healthPoint;
+        this(mx, my, healthPoint);
+        setWidth(width);
+        setHeight(height);
     }
 
     public BreakableObject(double x, double y) {
-        super(x, y);
-        healthPointCurrent = 0;
+        this(x, y, 1);
     }
 
     public int getHealthPointCurrent() {
@@ -49,22 +49,15 @@ public class BreakableObject extends Model{
         return false;
     }
 
-//    public static void main(String[] args) {
-//        BreakableObject m1 = new BreakableObject(13.1, 15.7);
-//        m1.setWidth(30.6);
-//        m1.setHeight(56.5);
-//        m1.setHealthPointCurrent(100);
-//        m1.healthPoint = 300;
-//
-//
-//        BreakableObject m2 = new BreakableObject(13.1, 15.7);
-//        m2.setWidth(30.6);
-//        m2.setHeight(56.5);
-//        m2.setHealthPointCurrent(5);
-//        m2.healthPoint = 300;
-//
-//
-//
-//        System.out.println(m1.equals(m2));
-//    }
+    public void hit(int damage){
+        healthPointCurrent -= damage;
+    }
+
+
+    public boolean isAlive(){
+        return healthPointCurrent > 0;
+    }
+
+
+
 }
