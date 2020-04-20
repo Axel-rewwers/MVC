@@ -72,6 +72,16 @@ public class Editor {
         JButton btnApply = new JButton("применить");
         btnApply.setBounds(10, 200, 100, 50);
 
+        JTextField tfStateDrawing = new JTextField(String.valueOf(wall.getHealthPointCurrent()));
+        tfStateDrawing.setBounds(10, 9, 100, 30);
+        editFrame.add(tfStateDrawing);
+
+        JLabel labelStateDrawing = new JLabel("State");
+        labelStateDrawing.setBounds(10, 0, 100, 7);
+        editFrame.add(labelStateDrawing);
+       ;
+
+
         btnApply.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,6 +115,7 @@ public class Editor {
         JButton btnOk = new JButton("ОК");
         btnOk.setBounds(140, 200, 100, 50);
         btnOk.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 editFrame.dispose();
@@ -152,6 +163,7 @@ public class Editor {
         editFrame.add(jCheckBox);
         editFrame.add(btnOk);
         editFrame.add(btnApply);
+
 
 
         editFrame.setVisible(true);

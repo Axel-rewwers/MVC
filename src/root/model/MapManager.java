@@ -21,8 +21,6 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
 
     private Tank tank;
 
-//    private static ArrayList<Bullet> bullets;
-
 
     public MapManager() {
         controlObjects = new ArrayList<>();
@@ -36,7 +34,6 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
         controlWalls = new ControlWalls();
 
 
-//        bullets = new ArrayList<>();
 
         FireListener fireListener = new FireListener();
 
@@ -46,6 +43,9 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
         Turret turret = new Turret(500,500,50,50,false);
         ctrlTurret.addObject(turret);
 
+        Turret turret1 = new Turret(500,250,50,50,false);
+        ctrlTurret.addObject(turret1);
+        turret1.setDirection(Model.Direction.DOWN);
 
 
         controlBullet = new ControllerBullet();
@@ -55,9 +55,9 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
 
         controllerExplodes = new ControllerExplodes();
 
+        controlObjects.add(controlBullet);
         controlObjects.add(controlWalls);
         controlObjects.add(ctrlTurret);
-        controlObjects.add(controlBullet);
         controlObjects.add(contrlTank);
         controlObjects.add(controllerExplodes);
 
@@ -77,6 +77,10 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
         if (wall != null) {
             tank.impact();
         }
+        Turret turret = ctrlTurret.getCollision(tank.getRectangle());
+        if(turret != null){
+            tank.impact();
+        }
 
 
         //пробегаемся по всем пулям и проверям коллизию стена-пуля
@@ -84,17 +88,29 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
         for (int j = 0; j < bullets.size(); j++) {
             Bullet b = bullets.get(j);
 
-            wall = controlWalls.getCollision(b.getRectangle());
-            if (wall != null) {
-                wall.hit(b.getDamage());
-                Explode explode = new Explode(b.getX(), b.getY(), 50,50);
-                controllerExplodes.addObject(explode);
-                controlBullet.removeObject(b);
-            }
+            checkCollision(controlWalls, b);
+
+            checkCollision(ctrlTurret, b);
+
+            checkCollision(contrlTank, b);
         }
 
 
     }
+
+
+    //подходят контроллеры любых наследников класса breakableObject
+    private <T extends BreakableObject> void checkCollision(ControlObject<T> ctrlObject, Bullet b){
+        T object = ctrlObject.getCollision(b.getRectangle());
+
+        if (object != null && object != b.getOwner()) {
+            object.hit(b.getDamage());
+            Explode explode = new Explode(b.getX(), b.getY(), 50,50);
+            controllerExplodes.addObject(explode);
+            controlBullet.removeObject(b);
+        }
+    }
+
 
 
     public void render(Graphics2D g) {

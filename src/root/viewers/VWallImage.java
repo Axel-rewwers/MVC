@@ -8,7 +8,8 @@ import java.awt.*;
 
 public class VWallImage implements ViewerObject<Wall> {
     private Image image;
-    private String path = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\wall3.png";
+    private int state = 0;
+    private String path = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Wall\\wall3.png";
 
 
     public VWallImage() {

@@ -10,7 +10,9 @@ public class Tank extends BreakableObject implements Fireable{
 
     private double speed;
 
+    public static final long timeToShift = 500;
 
+    private long timeCreate;
 
     private long time;
 
@@ -27,6 +29,7 @@ public class Tank extends BreakableObject implements Fireable{
         super(x, y, healthPoint);
         speed = 10;
         power = 1;
+        timeCreate = System.currentTimeMillis();
     }
 
 
@@ -41,7 +44,7 @@ public class Tank extends BreakableObject implements Fireable{
     @Override
     public Bullet fire(){
         if(readyToFire()) {
-            Bullet bullet = new Bullet(x, y, getDirection());
+            Bullet bullet = new Bullet(x, y, getDirection(), this);
             bullet.setWidth(5);
             bullet.setHeight(5);
             bullet.setDamage(power);
@@ -49,6 +52,13 @@ public class Tank extends BreakableObject implements Fireable{
             return bullet;
         }
         return null;
+    }
+
+    public boolean isAlive(){
+        return System.currentTimeMillis() - timeCreate < timeToShift;
+    }
+    public  long getTimeCreate() {
+        return timeCreate;
     }
 
     public void  go(){

@@ -38,7 +38,7 @@ public class VExplodeImage implements ViewerObject<Explode> {
         if(index>12) index = 12;
 
 
-        g.drawImage(images[index], x-width/2,y-height/2, 41, 40, null);
+        g.drawImage(images[index], x-width/2,y-height/2, width, height, null);
 
     }
 }

@@ -51,15 +51,5 @@ public class CtrlTurret extends ControlObject<Turret> {
     public void keyReleased(KeyEvent e) {
     }
 
-//        if (e.getKeyCode() == KeyEvent.VK_LEFT ||
-//                e.getKeyCode() == KeyEvent.VK_RIGHT ||
-//                e.getKeyCode() == KeyEvent.VK_DOWN ||
-//                e.getKeyCode() == KeyEvent.VK_UP) {
-//            mainTank.stop();
-//        }
-//        try {
-//            addObject(loadWallsFromFile(getPath()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
 }

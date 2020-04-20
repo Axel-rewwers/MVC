@@ -3,11 +3,13 @@ package root.model;
 public class Bullet extends Model {
     public static  double speed = 5;
     private int damage;
+    private Model owner;
 
     private double dx = 0, dy = 0;
 
-    public Bullet(double x, double y, Direction direction) {
+    public Bullet(double x, double y, Direction direction, Model owner) {
         super(x, y);
+        this.owner = owner;
         damage = 2;
         switch (direction){
             case UP:
@@ -46,4 +48,7 @@ public class Bullet extends Model {
     }
 
 
+    public Model getOwner() {
+        return owner;
+    }
 }

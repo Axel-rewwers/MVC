@@ -2,8 +2,6 @@ package root.model;
 
 public class Turret extends Wall implements Fireable{
 
-//    private double angle;
-    private int damage ;
 
     private long timeCoolDown = 1000;
     private long timeLastShot = 0;
@@ -22,18 +20,18 @@ public class Turret extends Wall implements Fireable{
     }
 
     public int getDamage() {
-        return damage;
+        return power;
     }
 
     public void setDamage(int damage) {
-        this.damage = damage;
+        this.power = damage;
     }
 
     @Override
     public Bullet fire() {
         Bullet bullet = null;
         if(readyToFire()){
-            bullet = new Bullet(getX(), getY(), getDirection());
+            bullet = new Bullet(getX(), getY(), getDirection(), this);
             timeLastShot = System.currentTimeMillis();
             bullet.setWidth(5);
             bullet.setHeight(5);
