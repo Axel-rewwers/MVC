@@ -1,8 +1,12 @@
-package root.model;
+package root.model.Wall;
 
-public class Wall extends BreakableObject{
+import root.model.BreakableObject;
+import root.model.Model;
 
-    private int state;
+import java.awt.*;
+
+public class Wall extends BreakableObject {
+    protected TypeWall type = TypeWall.SIMPLE;
 
     private final int timeDamageElapsed = 300;
     private long timeHit;
@@ -12,13 +16,23 @@ public class Wall extends BreakableObject{
 
     public Wall(double x, double y, int healthPoint) {
         super(x, y, healthPoint);
-        state = 2;
     }
 
     public Wall(double mx, double my, double width, double height, int healthPoint, boolean unbreakable) {
         super(mx, my, width, height, healthPoint);
         this.unbreakable = unbreakable;
-        state = 2;
+    }
+
+    public Dimension getDimension(){
+        Dimension dimension = new Dimension();
+        dimension.setSize(getWidth(), getHeight());
+        return dimension;
+    }
+
+    public Point getLocation(){
+        Point p = new Point();
+        p.setLocation(getX(), getY());
+        return p;
     }
 
     public void setDimension(double width, double height){
@@ -26,9 +40,9 @@ public class Wall extends BreakableObject{
         setHeight(height);
     }
 
-
-    public int getState() {
-        return state;
+    public void setLocation(double x, double y){
+        setX(x);
+        setY(y);
     }
 
     public boolean isTookDamage() {
@@ -69,5 +83,7 @@ public class Wall extends BreakableObject{
         return w;
     }
 
-
+    public TypeWall getType() {
+        return type;
+    }
 }

@@ -1,5 +1,7 @@
 package root.model;
 
+import root.model.Wall.Wall;
+
 public class Turret extends Wall implements Fireable{
 
 

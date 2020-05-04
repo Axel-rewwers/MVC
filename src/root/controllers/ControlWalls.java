@@ -1,6 +1,8 @@
 package root.controllers;
 
-import root.model.Wall;
+import root.model.Wall.FactoryWall;
+import root.model.Wall.TypeWall;
+import root.model.Wall.Wall;
 import root.utils.Display;
 import root.utils.Keyboard;
 import root.utils.Loader;
@@ -19,6 +21,7 @@ public class ControlWalls extends ControlObject<Wall> {
 
     public ControlWalls() {
         editor = new Editor();
+        editor.setSwitchListener(new ReplaceWallListener());
         setViewer(new VWallImage());
 
 
@@ -32,9 +35,10 @@ public class ControlWalls extends ControlObject<Wall> {
             e.printStackTrace();
         }
 
-//        Wall wall = new Wall(100,100,20,200,100,false);
-//
-//        addObject(wall);
+//        FactoryWall factoryWall = new FactoryWall();
+////        Wall wall = new Wall(100,100,20,200,100,false);
+////
+//        addObject(factoryWall.getInstance(TypeWall.STEEL, new Point(0,100), new Dimension(20, 200)));
 
 
     }
@@ -100,6 +104,7 @@ public class ControlWalls extends ControlObject<Wall> {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        System.out.println();
         if (Keyboard.getKey(KeyEvent.VK_CONTROL) & Keyboard.getKey(KeyEvent.VK_S)) {
             try {
                 loader.saveToFile(getObjects());
@@ -110,6 +115,15 @@ public class ControlWalls extends ControlObject<Wall> {
             }
         }
 
+    }
+
+
+    private class ReplaceWallListener implements SwitchListener<Wall>{
+        @Override
+        public void switchObjects(Wall remove, Wall add) {
+            removeObject(remove);
+            addObject(add);
+        }
     }
 
 }

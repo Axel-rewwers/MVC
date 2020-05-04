@@ -17,14 +17,23 @@ public class ControllerDisplay implements MouseWheelListener, MouseMotionListene
     public void mouseWheelMoved(MouseWheelEvent e) {
 
 
+
+
         if(e.getWheelRotation() > 0){
             //уменьшаем
-            Display.setScale(Display.getScale()-0.01);
+            double newScale = Display.getScale()-0.01;
+            if(newScale < 0.65){
+                newScale = 0.65;
+            }
+
+            Display.setScale(newScale);
+
         } else {
             //увеличиваем
 
             Display.setScale(Display.getScale()+0.01);
         }
+         
 
     }
 
@@ -33,11 +42,29 @@ public class ControllerDisplay implements MouseWheelListener, MouseMotionListene
 //        System.out.println("dragging!");
 
         if (centerShift != null) {
-            double shiftX = (e.getX() - centerShift.getX())/Display.getScale();
-            double shiftY = (e.getY() - centerShift.getY())/Display.getScale();
+            double shiftX = centerWindow.x - (e.getX() - centerShift.getX())/Display.getScale();
+            double shiftY = centerWindow.y -(e.getY() - centerShift.getY())/Display.getScale();
 
 
-            Display.setCenterWindow(centerWindow.x - shiftX, centerWindow.y - shiftY);
+
+            int boundX = 1000;
+            double windowWidth = Display.getWidth() / Display.getScale() / 2;
+            double shiftAbsX =
+                    shiftX - windowWidth < -boundX
+                    ? -boundX + windowWidth
+                    :
+                    shiftX + windowWidth > boundX
+                            ? boundX - windowWidth
+                            : shiftX;
+
+
+            int boundY = 500;
+
+
+
+            double shiftAbsY = shiftY < -boundY ? -boundY : shiftY > boundY ? boundY : shiftY;
+
+            Display.setCenterWindow(shiftAbsX, shiftAbsY);
         }
     }
 

@@ -100,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void drawBackground() {
-        g.setColor(Color.WHITE);
+        g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
     }
 

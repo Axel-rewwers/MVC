@@ -71,8 +71,11 @@ public class VTankImage implements ViewerObject<Tank> {
         int index = (int) Math.floor((System.currentTimeMillis() - tank.getTimeCreate()) / t);
 
         if(index>1) index = 1;
+        int alpha = 124;
+        Color clShadow = new Color(0,0,0,alpha);
 
-
+        g.setColor(clShadow);
+        g.fillOval( x,y, width, height);
         g.drawImage(images[index], x,y, width, height, null);
 
         g.setTransform(origTr);

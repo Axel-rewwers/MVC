@@ -1,7 +1,6 @@
 package root.viewers;
 
-import root.graphics.GamePanel;
-import root.model.Wall;
+import root.model.Wall.Wall;
 import root.utils.Display;
 
 import java.awt.*;
@@ -29,22 +28,22 @@ public class VWalls implements ViewerObject<Wall> {
         Point c = new Point(x + width / 2, y + height / 2);
         Point d = new Point(x - width / 2, y + height / 2);
 
-        Color primeCl;
+        Color primeCl = Color.gray.darker() ;
 
-        switch (wall.getState()){
-            case 2:
-                primeCl = Color.gray.darker();
-                break;
-            case 1:
-                primeCl = Color.gray;
-                break;
-
-            case 0:
-                primeCl = Color.lightGray.brighter();
-                break;
-            default: primeCl = Color.RED;
-                break;
-        }
+//        switch (wall.getState()){
+//            case 2:
+//                primeCl = Color.gray.darker();
+//                break;
+//            case 1:
+//                primeCl = Color.gray;
+//                break;
+//
+//            case 0:
+//                primeCl = Color.lightGray.brighter();
+//                break;
+//            default: primeCl = Color.RED;
+//                break;
+//        }
 
         g.setColor(primeCl);
         g.fillPolygon(

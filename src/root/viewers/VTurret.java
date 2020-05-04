@@ -1,7 +1,6 @@
 package root.viewers;
 
 import root.model.Turret;
-import root.model.Wall;
 import root.utils.Display;
 
 import javax.swing.*;
@@ -51,6 +50,11 @@ public class VTurret implements ViewerObject<Turret> {
         g.setTransform(newTr);
 //        g.drawImage(image,x, y, width, height, null);
 
+        int alpha = 124;
+        Color clShadow = new Color(0,0,0,alpha);
+
+        g.setColor(clShadow);
+        g.fillOval( x,y, width, height);
 
         g.drawImage(image, x,y, width, height, null);
 

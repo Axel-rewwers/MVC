@@ -1,10 +1,6 @@
 package root;
 
-import root.graphics.GamePanel;
-import root.model.Wall;
-
 import java.io.*;
-import java.util.ArrayList;
 
 public class TestFileWork {
 //11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111

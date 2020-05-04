@@ -2,8 +2,10 @@ package root.model;
 
 
 import root.controllers.*;
-import root.graphics.GamePanel;
+import root.model.Wall.Wall;
+import root.utils.Display;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -20,13 +22,16 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
     private ControllerExplodes controllerExplodes;
 
     private Tank tank;
-
+    private Image image;
+    private String path = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Map\\4.png";
 
     public MapManager() {
         controlObjects = new ArrayList<>();
 
+        image = new ImageIcon(path).getImage();
 
-        tank = new Tank(GamePanel.WIDTH / 2, GamePanel.HEIGHT / 2, 3);
+
+        tank = new Tank(-900, 900, 3);
         tank.setHeight(50);
         tank.setWidth(50);
 
@@ -113,7 +118,28 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
 
 
 
+    private void drawBackground(Graphics2D g){
+
+        Model map = new Model(0, 0, 2000, 2000);
+
+        Point p = Display.toWindowCoordinate(map.getX(), map.getY());
+
+        int x = p.x;
+        int y = p.y;
+        int width = (int) Display.toScale(map.getWidth());
+        int height = (int) Display.toScale(map.getHeight());
+
+
+        g.drawImage(image, x-width/2,y-height/2, width, height, null);
+    }
+
     public void render(Graphics2D g) {
+
+
+        drawBackground(g);
+
+
+
         for (int i = 0; i < controlObjects.size(); i++) {
             controlObjects.get(i).render(g);
         }
