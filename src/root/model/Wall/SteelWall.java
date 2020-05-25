@@ -6,8 +6,8 @@ public class SteelWall extends Wall {
 
 
     public SteelWall(Point location, Dimension dimension) {
-        super(location.getX(), location.getY(), dimension.getWidth(), dimension.getHeight(), 300, false);
-        type = TypeWall.STEEL;
+        super(location.getX(), location.getY(), dimension.getWidth(), dimension.getHeight(), 300);
+        type = TypeObject.STEEL;
     }
 
     @Override

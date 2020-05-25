@@ -2,6 +2,7 @@ package root.model;
 
 
 import root.controllers.*;
+import root.model.Turret.Turret;
 import root.model.Wall.Wall;
 import root.utils.Display;
 
@@ -21,6 +22,7 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
     private ControllerBullet controlBullet;
     private ControllerExplodes controllerExplodes;
 
+
     private Tank tank;
     private Image image;
     private String path = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Map\\4.png";
@@ -35,22 +37,24 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
         tank.setHeight(50);
         tank.setWidth(50);
 
-        contrlTank = new CtrlTank(tank);
-        controlWalls = new ControlWalls();
+//        contrlTank = new CtrlTank(tank);
+        contrlTank = new ControlTankEdit(tank);
+        controlWalls = new ControlWallsEdit();
+//        controlWalls = new ControlWalls();
 
 
 
         FireListener fireListener = new FireListener();
 
-        ctrlTurret = new CtrlTurret();
+        ctrlTurret = new CtrlTurretEdit();
         ctrlTurret.setFireListener(fireListener);
 
-        Turret turret = new Turret(500,500,50,50,false);
+        Turret turret = new Turret(500,500,50,50);
         ctrlTurret.addObject(turret);
 
-        Turret turret1 = new Turret(500,250,50,50,false);
+        Turret turret1 = new Turret(500,250,50,50);
         ctrlTurret.addObject(turret1);
-        turret1.setDirection(Model.Direction.DOWN);
+        turret1.setDirection(Direction.DOWN);
 
 
         controlBullet = new ControllerBullet();
@@ -135,10 +139,7 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
 
     public void render(Graphics2D g) {
 
-
         drawBackground(g);
-
-
 
         for (int i = 0; i < controlObjects.size(); i++) {
             controlObjects.get(i).render(g);
@@ -156,49 +157,72 @@ public class MapManager implements MouseMotionListener, MouseListener, KeyListen
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        controlWalls.mouseDragged(e);
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).mouseDragged(e);
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).mouseMoved(e);
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).mouseClicked(e);
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        controlWalls.mousePressed(e);
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).mousePressed(e);
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        controlWalls.mouseReleased(e);
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).mouseReleased(e);
+        }
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).mouseEntered(e);
+        }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).mouseExited(e);
+        }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).keyTyped(e);
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        controlWalls.keyPressed(e);
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).keyPressed(e);
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        controlWalls.keyReleased(e);
+        for (int i = 0; i < controlObjects.size(); i++) {
+            controlObjects.get(i).keyReleased(e);
+        }
     }
 
 

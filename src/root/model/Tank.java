@@ -28,7 +28,7 @@ public class Tank extends BreakableObject implements Fireable{
     public Tank(double x, double y, int healthPoint) {
         super(x, y, healthPoint);
         speed = 10;
-        power = 1;
+        power = 10;
         timeCreate = System.currentTimeMillis();
     }
 
@@ -128,7 +128,9 @@ public class Tank extends BreakableObject implements Fireable{
         return y;
     }
 
-//    public int getState() {
-//        return 0;
+//    @Override
+//    public Tank copy() {
+//        return super.copy();
 //    }
+
 }

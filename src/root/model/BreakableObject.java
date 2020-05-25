@@ -1,13 +1,18 @@
 package root.model;
 
+import root.model.Wall.TypeObject;
+
 public class BreakableObject extends Model{
     private int healthPointCurrent;
     private int healthPoint;
+    private boolean unbreakable = false; //неуязвимость
+
+    protected TypeObject type = TypeObject.SIMPLE;
 
 
-    public BreakableObject(double x, double y, int healthPointCurrent) {
+    public BreakableObject(double x, double y, int healthPoint) {
         super(x, y);
-        this.healthPointCurrent = healthPointCurrent;
+        this.healthPointCurrent = healthPoint;
         this.healthPoint = healthPointCurrent;
     }
 
@@ -17,9 +22,6 @@ public class BreakableObject extends Model{
         setHeight(height);
     }
 
-    public BreakableObject(double x, double y) {
-        this(x, y, 1);
-    }
 
     public int getHealthPointCurrent() {
         return healthPointCurrent;
@@ -43,7 +45,8 @@ public class BreakableObject extends Model{
             BreakableObject b = (BreakableObject) m;
             return super.equals(b)
                     & healthPoint == b.healthPoint
-                    & healthPointCurrent == b.healthPointCurrent;
+                    & healthPointCurrent == b.healthPointCurrent
+                    & b.isUnbreakable() == isUnbreakable();
         }
 
         return false;
@@ -58,6 +61,28 @@ public class BreakableObject extends Model{
         return healthPointCurrent > 0;
     }
 
+
+    public boolean isUnbreakable() {
+        return unbreakable;
+    }
+
+    public void setUnbreakable(boolean unbreakable) {
+        this.unbreakable = unbreakable;
+    }
+
+
+    public TypeObject getType() {
+        return type;
+    }
+
+
+    @Override
+    public BreakableObject copy() {
+        BreakableObject object = new BreakableObject(x, y, getWidth(),getHeight(), getHealthPoint());
+        object.setHealthPointCurrent(getHealthPointCurrent());
+
+        return object;
+    }
 
 
 }

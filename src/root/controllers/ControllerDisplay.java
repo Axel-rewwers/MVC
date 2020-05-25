@@ -11,17 +11,20 @@ public class ControllerDisplay implements MouseWheelListener, MouseMotionListene
     private Point centerShift;
     private Point centerWindow;
 
+    private double scaleStep = 0.1;
 
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
 
+        //попробуй взять точку центра экрана (centerWindow) в этом месте
+        centerWindow = new Point(Display.getX(), Display.getY());
 
 
 
         if(e.getWheelRotation() > 0){
             //уменьшаем
-            double newScale = Display.getScale()-0.01;
+            double newScale = Display.getScale() - scaleStep;
             if(newScale < 0.65){
                 newScale = 0.65;
             }
@@ -30,10 +33,44 @@ public class ControllerDisplay implements MouseWheelListener, MouseMotionListene
 
         } else {
             //увеличиваем
+            double newScale = Display.getScale() + scaleStep;
+            if(newScale > 1.5){
+                newScale = 1.5;
+            }
+            Display.setScale(newScale);
 
-            Display.setScale(Display.getScale()+0.01);
         }
-         
+
+
+        double shiftX = centerWindow.x;
+        double shiftY = centerWindow.y;
+
+
+
+        int boundX = 1000;
+        double windowWidth = Display.getWidth() / Display.getScale() / 2;
+        double shiftAbsX =
+                shiftX - windowWidth < -boundX
+                        ? -boundX + windowWidth
+                        :
+                        shiftX + windowWidth > boundX
+                                ? boundX - windowWidth
+                                : shiftX;
+
+
+        int boundY = 1000;
+        double windowHeight = Display.getHeight()/ Display.getScale() / 2;
+        double shiftAbsY =
+                shiftY - windowHeight < -boundY
+                        ? -boundY + windowHeight
+                        :
+                        shiftY + windowHeight > boundY
+                                ? boundY - windowHeight
+                                : shiftY;
+
+
+        Display.setCenterWindow(shiftAbsX, shiftAbsY);
+
 
     }
 
@@ -58,11 +95,15 @@ public class ControllerDisplay implements MouseWheelListener, MouseMotionListene
                             : shiftX;
 
 
-            int boundY = 500;
-
-
-
-            double shiftAbsY = shiftY < -boundY ? -boundY : shiftY > boundY ? boundY : shiftY;
+            int boundY = 1000;
+            double windowHeight = Display.getHeight()/ Display.getScale() / 2;
+            double shiftAbsY =
+                    shiftY - windowHeight < -boundY
+                            ? -boundY + windowHeight
+                            :
+                            shiftY + windowHeight > boundY
+                                    ? boundY - windowHeight
+                                    : shiftY;
 
             Display.setCenterWindow(shiftAbsX, shiftAbsY);
         }

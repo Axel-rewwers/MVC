@@ -1,5 +1,6 @@
 package root.controllers;
 
+import root.model.Direction;
 import root.model.Model;
 import root.model.Tank;
 import root.viewers.VTankImage;
@@ -41,22 +42,22 @@ public class CtrlTank extends ControlObject<Tank> {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
             case KeyEvent.VK_UP:
-                mainTank.setDirection(Model.Direction.UP);
+                mainTank.setDirection(Direction.UP);
                 mainTank.go();
                 break;
 
             case KeyEvent.VK_DOWN:
-                mainTank.setDirection(Model.Direction.DOWN);
+                mainTank.setDirection(Direction.DOWN);
                 mainTank.go();
                 break;
 
             case KeyEvent.VK_RIGHT:
-                mainTank.setDirection(Model.Direction.RIGHT);
+                mainTank.setDirection(Direction.RIGHT);
                 mainTank.go();
                 break;
 
             case KeyEvent.VK_LEFT:
-                mainTank.setDirection(Model.Direction.LEFT);
+                mainTank.setDirection(Direction.LEFT);
                 mainTank.go();
                 break;
             case KeyEvent.VK_SPACE:

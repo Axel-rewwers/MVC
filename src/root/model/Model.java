@@ -32,6 +32,18 @@ public class Model implements Serializable {
     public double getWidth() {
         return width;
     }
+    public Dimension getDimension(){
+        Dimension dimension = new Dimension();
+        dimension.setSize(getWidth(), getHeight());
+        return dimension;
+    }
+
+    public Point getLocation(){
+        Point p = new Point();
+        p.setLocation(getX(), getY());
+        return p;
+    }
+
 
     public Direction getDirection() {
         return direction;
@@ -103,14 +115,12 @@ public class Model implements Serializable {
     }
 
 
+    public <T extends Model> T copy(){
+        Model m = new Model(x, y, width, height);
+        m.setDirection(direction);
 
-    public enum Direction{
-        UP,
-        DOWN,
-        RIGHT,
-        LEFT
+        return (T) m;
     }
-
 
 }
 

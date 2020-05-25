@@ -1,21 +1,43 @@
 package root.controllers;
 
-import root.model.Turret;
+import root.model.Turret.Turret;
+import root.model.Wall.FactoryWall;
+import root.model.Wall.TypeObject;
+import root.model.Wall.Wall;
+import root.utils.Loader;
 import root.viewers.VTurret;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class CtrlTurret extends ControlObject<Turret> {
     private ActionListener fireListener;
-
+    private Loader<Turret> loader;
 
     public CtrlTurret() {
 
         setViewer(new VTurret());
+
+        loader = new Loader<>();
+        loader.setPath("turret_v1.map");
+//        try {
+//            addObject(loader.loadFromFile());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
+//                FactoryWall factoryWall = new FactoryWall();
+////        Wall wall = new Wall(100,100,20,200,100,false);
+////
+//        addObject(factoryWall.getInstance(TypeObject.STEEL, new Point(0,100), new Dimension(20, 200)));
+
     }
 
     @Override
@@ -27,7 +49,15 @@ public class CtrlTurret extends ControlObject<Turret> {
             if(fireListener != null && turret.readyToFire()){
                 fireListener.actionPerformed(new ActionEvent(turret, 0, "fire"));
             }
+
+            if(!turret.isAlive()){
+                removeObject(turret);
+            }
         }
+    }
+
+    public void save() throws IOException {
+        loader.saveToFile(getObjects());
     }
 
 

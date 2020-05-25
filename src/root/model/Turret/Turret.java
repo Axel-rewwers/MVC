@@ -1,8 +1,10 @@
-package root.model;
+package root.model.Turret;
 
+import root.model.Bullet;
+import root.model.Fireable;
 import root.model.Wall.Wall;
 
-public class Turret extends Wall implements Fireable{
+public class Turret extends Wall implements Fireable {
 
 
     private long timeCoolDown = 1000;
@@ -10,8 +12,8 @@ public class Turret extends Wall implements Fireable{
     private int power;
 
 
-    public Turret(double mx, double my, double size, int healthPoint, boolean unbreakable) {
-        super(mx, my, size, size, healthPoint, unbreakable);
+    public Turret(double mx, double my, double size, int healthPoint) {
+        super(mx, my, size, size, healthPoint);
         power = 1;
     }
 
@@ -47,4 +49,22 @@ public class Turret extends Wall implements Fireable{
         return  System.currentTimeMillis() - timeLastShot >= timeCoolDown;
     }
 
+
+    public long getTimeCoolDown() {
+        return timeCoolDown;
+    }
+
+    public void setTimeCoolDown(long timeCoolDown) {
+        this.timeCoolDown = timeCoolDown;
+    }
+
+    @Override
+    public Wall copy() {
+        Turret turret = new Turret(x, y, getWidth(), getHealthPoint());
+        turret.setDamage(getDamage());
+        turret.setUnbreakable(isUnbreakable());
+        turret.setTimeCoolDown(getTimeCoolDown());
+        turret.setDirection(getDirection());
+        return turret;
+    }
 }

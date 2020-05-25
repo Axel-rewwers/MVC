@@ -13,12 +13,14 @@ public class VWallImage implements ViewerObject<Wall> {
     private Image imageBrick;
     private Image imageWood;
     private Image imageSimpl;
+    private Image imageArmored;
 
     private String pathSimpl = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Wall\\0.png";
     private String pathWood = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Wall\\1.png";
     private String pathRock = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Wall\\2.png";
-    private String pathBrick = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Wall\\3.png";
+    private String pathBrick = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Wall\\2.png";
     private String pathSteel = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Wall\\4.png";
+    private String pathArmored = "C:\\Users\\poloz\\IdeaProjects\\MVC\\res\\images\\Wall\\5.png";
 
     public VWallImage() {
         imageSimpl = new ImageIcon(pathSimpl).getImage();
@@ -26,6 +28,7 @@ public class VWallImage implements ViewerObject<Wall> {
         imageRock = new ImageIcon(pathRock).getImage();
         imageBrick = new ImageIcon(pathBrick).getImage();
         imageSteel = new ImageIcon(pathSteel).getImage();
+        imageArmored = new ImageIcon(pathArmored).getImage();
 
     }
 
@@ -61,6 +64,7 @@ public class VWallImage implements ViewerObject<Wall> {
         if (wall instanceof RockWall) image = imageRock;
         if (wall instanceof BrickWall) image = imageBrick;
         if (wall instanceof SteelWall) image = imageSteel;
+        if (wall instanceof ArmoredWall) image = imageArmored;
 
 
         for (int i = 0; i < countWidth; i++) {

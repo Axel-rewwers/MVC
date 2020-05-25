@@ -5,8 +5,8 @@ import java.awt.*;
 public class WoodWall  extends Wall{
 
     public WoodWall(Point location, Dimension dimension) {
-        super(location.getX(), location.getY(), dimension.getWidth(), dimension.getHeight(), 50, false);
-        type = TypeWall.WOOD;
+        super(location.getX(), location.getY(), dimension.getWidth(), dimension.getHeight(), 50);
+        type = TypeObject.WOOD;
     }
 
     @Override

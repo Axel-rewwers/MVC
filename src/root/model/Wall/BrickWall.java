@@ -5,8 +5,8 @@ import java.awt.*;
 public class BrickWall extends Wall {
 
     public BrickWall(Point location, Dimension dimension) {
-        super(location.getX(), location.getY(), dimension.getWidth(), dimension.getHeight(), 200, false);
-        type = TypeWall.BRICK;
+        super(location.getX(), location.getY(), dimension.getWidth(), dimension.getHeight(), 250);
+        type = TypeObject.BRICK;
     }
 
     @Override

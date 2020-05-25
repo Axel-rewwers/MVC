@@ -1,49 +1,43 @@
 package root.controllers;
 
 import root.model.Wall.FactoryWall;
-import root.model.Wall.TypeWall;
+import root.model.Wall.TypeObject;
 import root.model.Wall.Wall;
-import root.utils.Display;
-import root.utils.Keyboard;
 import root.utils.Loader;
 import root.viewers.VWallImage;
 
+
 import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ControlWalls extends ControlObject<Wall> {
 
-    private Editor editor;
+
     private Loader<Wall> loader;
 
 
     public ControlWalls() {
-        editor = new Editor();
-        editor.setSwitchListener(new ReplaceWallListener());
         setViewer(new VWallImage());
 
 
-        loader = new Loader<>("walls_v1.map");
+        loader = new Loader<>();
+//        loader.setPath("walls_v1.map");
+//        try {
+//            addObject(loader.loadFromFile());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
-        try {
-            addObject(loader.loadFromFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-//        FactoryWall factoryWall = new FactoryWall();
-////        Wall wall = new Wall(100,100,20,200,100,false);
-////
-//        addObject(factoryWall.getInstance(TypeWall.STEEL, new Point(0,100), new Dimension(20, 200)));
+        FactoryWall factoryWall = new FactoryWall();
+//        Wall wall = new Wall(100,100,20,200,100,false);
+//
+        addObject(factoryWall.getInstance(TypeObject.STEEL, new Point(0,100), new Dimension(20, 200)));
 
 
     }
-
-
 
     @Override
     public void update() {
@@ -58,72 +52,9 @@ public class ControlWalls extends ControlObject<Wall> {
         }
     }
 
-    private Wall wall;
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        if (wall != null) {
-            Point p = Display.toMapCoordinate(e.getX(),  e.getY());
-            int x = p.x;
-            int y = p.y;
-
-            wall.setX(x);
-            wall.setY(y);
-        }
-    }
-
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        if (wall == null && e.getButton() == 1) {
-            int size = 2;
-            Point p = Display.toMapCoordinate(e.getX(),  e.getY());
-            int x = p.x;
-            int y = p.y;
-            Rectangle r = new Rectangle(x - size / 2, y - size / 2, size, size);
-
-            wall = getCollision(r);
-            if(wall != null && Keyboard.getKey(KeyEvent.VK_CONTROL)){
-                wall = wall.copy();
-                addObject(wall);
-            }
-
-
-            if(wall != null && Keyboard.getKey(KeyEvent.VK_E)){
-                editor.editWall(wall);
-            }
-
-        }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        wall = null;
-    }
-
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println();
-        if (Keyboard.getKey(KeyEvent.VK_CONTROL) & Keyboard.getKey(KeyEvent.VK_S)) {
-            try {
-                loader.saveToFile(getObjects());
-                System.out.println("save");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                System.out.println("Ошибка сохранения!!!");
-            }
-        }
-
-    }
-
-
-    private class ReplaceWallListener implements SwitchListener<Wall>{
-        @Override
-        public void switchObjects(Wall remove, Wall add) {
-            removeObject(remove);
-            addObject(add);
-        }
+    public void save() throws IOException {
+        loader.saveToFile(getObjects());
     }
 
 }
